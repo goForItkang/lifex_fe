@@ -10,6 +10,7 @@ import Curriculum from './page/Curriculum.jsx';
 import Signup from './page/Signup.jsx';
 import Hospital from './page/Hospital.jsx';
 import Medicine from './page/Medicine.jsx';
+
 function App() {
   return (
     <div className="App">

@@ -1,39 +1,22 @@
-import React, { useState } from 'react';
+import React from 'react'; // useState와 useEffect는 이제 필요하지 않습니다.
 import "../css/base.css"
 import HosipitalInfo from '../component/hospital/HospitalInfo';
 import HosipitalStatus from '../component/hospital/HosipitalStatus';
-import HosipitalWorkingPeopleInfo from '../component/hospital/HospitalWorkingPeopleInfo';
-import { hospitalAPI } from '../api/hosiptalAPI';
+import HosipitalWorkingPeopleInfo from '../component/hospital/HospitalWorkingPeopleInfo'; 
 import { useSelector } from 'react-redux';
-import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useGetHospital } from '../api/hooks/useHospital'; // 커스텀 훅 임포트
+
 const Hospital = () => {
     const user = useSelector((state) => state.auth.user);
     const hospital_name = user?.hospital;
-    const [hospital_info,set_hospital_info] = useState(null); 
-    const navigate = useNavigate() 
-    useEffect(() => {
-        const loadHospital = async () => {
-            
-            if (!hospital_name) {
-                alert("로그인 필요한 서비스입니다.");
-                navigate("/login")
-                return 
-            }
-            try {
-                const res = await hospitalAPI.getHostpital(hospital_name);
-                set_hospital_info(res.data);
-                console.log("데이터",res.data)
-            } catch (err) {
-                console.error("API 오류:", err);
-            }
-        };
+    console.log("hospital_name = ",hospital_name);
+    const { 
+        data: hospital_info, 
+    } = useGetHospital(hospital_name);
     
-        loadHospital();// 호출
-    }, [hospital_name]);
-    
-    
-    if (!hospital_info) return <div>Loading...</div>;
+    if (!hospital_info) {
+         return <div>병원 정보를 찾을 수 없습니다.</div>;
+    }
     return (
         <div className='sm:flex sm:flex-col gap-4'>
             <HosipitalInfo

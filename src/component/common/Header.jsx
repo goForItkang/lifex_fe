@@ -7,7 +7,8 @@ import Cookies from "js-cookie";
 import { logout } from '../../store/slices/authSlice';
 import Hospital from '../../page/Hospital';
 const Header = () => {
-    const user =useSelector((state) => state.auth.user);
+    const user = useSelector((state) => state.auth.user);
+    const hospital_name = user?.hospital;
     const dispatch = useDispatch()
     const navigator = useNavigate()
     const logoutHandler = () =>{
@@ -28,7 +29,7 @@ const Header = () => {
             </Link>
             </div>
             <nav className='md:flex hidden w-[300px] justify-evenly mx-auto md:block'>
-                <Link to={`/hospital/${user?.hospital_name}`}>
+                <Link to={`/hospital/${hospital_name}`}>
                 <p>병원 현황</p>
                 </Link>
                 <Link to={"/medicine"}>
