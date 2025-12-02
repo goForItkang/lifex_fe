@@ -5,14 +5,11 @@ import HosipitalStatus from '../component/hospital/HosipitalStatus';
 import HosipitalWorkingPeopleInfo from '../component/hospital/HospitalWorkingPeopleInfo'; 
 import { useSelector } from 'react-redux';
 import { useGetHospital } from '../api/hooks/useHospital'; // 커스텀 훅 임포트
+import { useParams } from "react-router-dom";
 
 const Hospital = () => {
-    const user = useSelector((state) => state.auth.user);
-    const hospital_name = user?.hospital;
-    console.log("hospital_name = ",hospital_name);
-    const { 
-        data: hospital_info, 
-    } = useGetHospital(hospital_name);
+    const { hospital_name } = useParams();
+    const { data: hospital_info } = useGetHospital(hospital_name);
     
     if (!hospital_info) {
          return <div>병원 정보를 찾을 수 없습니다.</div>;

@@ -1,5 +1,7 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { userAPI } from '../api/userAPI';
+import { useNavigate } from 'react-router-dom';
+const navigator = useNavigate();
 // 사용자 가져오기 
 // export const useUser = () =>{
 //     return useQuery({
@@ -51,11 +53,26 @@ export const useDelete =()=>{
         }
     })
 }
+// 사용자 ID로 조회
 export const useUserFindId=()=>{
     return useMutation({
         mutationFn : async({id})=>{
             const res = await userAPI.userFindId({id});
             return res.data
+        }
+    })
+}
+
+// 사용자 ID로 조회
+export const useUserFindIdex=()=>{
+    return useMutation({
+        mutationFn : async({id})=>{
+            const res = await userAPI.userFindId({id});
+            return res.data
+            
+        },
+        onError : (error) =>{
+            navigator("/login")
         }
     })
 }

@@ -9,8 +9,6 @@ const instance =axios.create({
 instance.interceptors.request.use(
     (config) =>{
         const token = Cookies.get("accessToken");
-        console.log(token);
-        
         if(token) {
             config.headers.Authorization = `Bearer ${token}`
         }
@@ -22,7 +20,17 @@ instance.interceptors.request.use(
 instance.interceptors.response.use(
     (res)=>res,
     (error)=>{
-        console.log("API error");
+        if(error.status === 401){
+            alert("로그인이 필요한 기능입니다.")
+            window.location.assign("/login")
+        }
+        if(error.status === 403){
+            alert("권한이 없습니다.")
+            window.location.assign("/")
+        }
+        if(error.status === 500){
+            alert("서버에 오류가 생겼습니다 잠시후 이용해주세요")
+        }
         return Promise.reject(error);
     }
 )
