@@ -12,8 +12,6 @@ const Header = () => {
     const dispatch = useDispatch()
     const navigator = useNavigate()
     const logoutHandler = () =>{
-        const token =  Cookies.get("accessToken");
-       console.log("header 에 토큰 값 ",token)
        dispatch(logout());
        navigator("/login")
     }

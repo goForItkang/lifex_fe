@@ -1,7 +1,7 @@
 import instance from "../util/instance"
 
 export const medicineAPI = {
-    getMedicine:({hospital_name,keyword})=> instance.get(`/api/hospitals/${hospital_name}/medicines`,{
+    getMedicine:({keyword})=> instance.get(`/api/hospitals/medicines`,{
         params:{
             medicine:keyword
         }

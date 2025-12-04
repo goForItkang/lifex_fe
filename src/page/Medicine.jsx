@@ -1,17 +1,11 @@
 import React, { useState, useEffect } from "react";
 import Search from "../component/Search";
 import { useSelector } from "react-redux";
-
-// React Query (약 리스트 조회)
 import { useOwnMedicine, useMedicineAll } from "../api/hooks/useMedicine";
-
-// Components
 import OwnMedicineList from "../component/medicine/OwnMedicineList";
 import OwnMedicineAIList from "../component/medicine/OwnMedicineAIList";
 import ExternalMedicineList from "../component/medicine/ExternalMedicineList";
 import ExternalMedicineAIList from "../component/medicine/ExternalMedicineAIList";
-
-// API ai 
 import { aiAPI } from "../api/aiAPI";
 import { medicineAPI } from "../api/medicineAPI";
 
@@ -22,7 +16,7 @@ const Medicine = () => {
     const user = useSelector((state) => state.auth.user);
     const hospital_name = user?.hospital;
     const { data: ownMedicine, isLoading: ownLoading } = useOwnMedicine(
-        hospital_name,
+        
         keyword,
         hospital_option && keyword.length > 0
     );

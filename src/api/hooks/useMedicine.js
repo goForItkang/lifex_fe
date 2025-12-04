@@ -2,18 +2,14 @@ import { useQuery } from "@tanstack/react-query";
 import { medicineAPI } from "../medicineAPI";
 import Hospital from "../../page/Hospital";
 
-export const useOwnMedicine = (hospital_name, keyword,enabled) => {
+export const useOwnMedicine = (keyword, enabled) => {
     return useQuery({
-        queryKey: ["own_medicine", hospital_name, keyword],
+        queryKey: ["own_medicine", keyword],
         queryFn: async () => {
-            const res = await medicineAPI.getMedicine({ hospital_name, keyword });
+            const res = await medicineAPI.getMedicine({ keyword: keyword });
             return res.data;
         },
-        
-        enabled: 
-        enabled && keyword.length >= 1,
-        refetchOnWindowFocus: false,
-        retry: 0
+        enabled: enabled && typeof keyword === "string" && keyword.length >= 1,
     });
 };
 

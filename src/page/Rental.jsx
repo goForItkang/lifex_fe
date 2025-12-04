@@ -7,7 +7,7 @@ const Rental = () => {
     const user = useSelector((state) => state.auth.user);
     const hospital_id = user?.hospital_id;
 
-    const { data: requestList, isLoading, error } = useGetReqeustMedicine(hospital_id);
+    const { data: requestList, isLoading, error } = useGetReqeustMedicine();
     if (isLoading) return <p className="text-center py-4">불러오는 중...</p>;
     if (error) return <p className="text-center py-4 text-red-500">데이터 조회 실패</p>;
     if (!requestList || requestList.length === 0)
