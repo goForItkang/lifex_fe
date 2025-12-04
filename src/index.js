@@ -3,10 +3,11 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { store } from './store/store'; // 🎯 설정한 Redux Store import
-import { Provider } from 'react-redux'; // 🎯 Provider import
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-const queryClient = new QueryClient();
+import { store } from './store/store';
+import { Provider } from 'react-redux';
+import { queryClient } from "./util/queryClient";
+import { QueryClientProvider } from '@tanstack/react-query';
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>

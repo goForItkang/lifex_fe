@@ -15,8 +15,6 @@ const Header = () => {
        dispatch(logout());
        navigator("/login")
     }
-    
-    
     return (
         <header className='flex   border-b mx-auto bg-[#f6f8f7ff] h-[100px] '>
             <div className='flex w-[80%] justify-between m-auto'>

@@ -25,13 +25,15 @@ export const useMedicineAll = (keyword,enabled) => {
         retry: 0
     });
 };
-export const useGetReqeustMedicine = (hospital_id) =>{
+export const useGetReqeustMedicine = () =>{
     return useQuery({
-        queryKey : ['medicine',hospital_id],
+        queryKey : ['medicine'],
         queryFn : async ()=>{
-            const res = await medicineAPI.getRequestMedicine({hospital_id});
+            const res = await medicineAPI.getRequestMedicine();
             return res.data
-        }
+        },
+        enabled: true,
+        staleTime:0
     })
 }
 

@@ -16,9 +16,5 @@ export const medicineAPI = {
             stock_id:stock_id,
             quantity:quantity
     }),
-    getRequestMedicine:({hospital_id})=>instance.get("/api/medicines-request",{
-        params:{
-            hospital_id:hospital_id
-        }
-    })
+    getRequestMedicine:()=>instance.get("/api/medicines-request")
 }
