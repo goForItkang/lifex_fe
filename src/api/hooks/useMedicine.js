@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { medicineAPI } from "../medicineAPI";
+import Hospital from "../../page/Hospital";
 
 export const useOwnMedicine = (hospital_name, keyword,enabled) => {
     return useQuery({
@@ -28,4 +29,13 @@ export const useMedicineAll = (keyword,enabled) => {
         retry: 0
     });
 };
+export const useGetReqeustMedicine = (hospital_id) =>{
+    return useQuery({
+        queryKey : ['medicine',hospital_id],
+        queryFn : async ()=>{
+            const res = await medicineAPI.getRequestMedicine({hospital_id});
+            return res.data
+        }
+    })
+}
 
