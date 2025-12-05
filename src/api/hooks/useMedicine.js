@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { medicineAPI } from "../medicineAPI";
 import Hospital from "../../page/Hospital";
 
@@ -36,4 +36,21 @@ export const useGetReqeustMedicine = () =>{
         staleTime:0
     })
 }
+export const useGetPendingMedicine = () =>{
+    return useQuery({
+        queryKey: ['medicine-pending'],
+        queryFn : async ()=>{
+            const res = await medicineAPI.getPendingMedicine();
+            return res.data
+        }
+    })
 
+}
+export const useResponseMedicine = () => {
+    return useMutation({
+        mutationFn: async ({ id, status }) => {
+            const res = await medicineAPI.responseMedicine({ id, status });
+            return res.data;
+        }
+    });
+};

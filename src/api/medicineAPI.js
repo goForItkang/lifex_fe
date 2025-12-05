@@ -16,5 +16,9 @@ export const medicineAPI = {
             stock_id:stock_id,
             quantity:quantity
     }),
-    getRequestMedicine:()=>instance.get("/api/medicines-request")
+    getRequestMedicine:()=>instance.get("/api/medicines-request"),
+    getPendingMedicine:()=>instance.get("/api/medicine/approval/pending"),
+    responseMedicine:({id,status})=>instance.patch(`/api/medicine/approval/${id}`,null,{
+        params : {status}
+    })
 }

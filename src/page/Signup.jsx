@@ -39,7 +39,7 @@ const Signup = () => {
             const res = await userAPI.singup(formData);
             console.log(res.status);
             if(res.status === 200){
-                alert("로그인에 성공했습니다.")
+                alert("회원가입에 성공했습니다.")
                 navigate("/login");
             }
         }catch(error){

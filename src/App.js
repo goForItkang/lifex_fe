@@ -10,6 +10,7 @@ import Curriculum from './page/Curriculum.jsx';
 import Signup from './page/Signup.jsx';
 import Hospital from './page/Hospital.jsx';
 import Medicine from './page/Medicine.jsx';
+import MedicineApproval from './page/MedicineApproval.jsx';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           <Route path="/hospital/:hospital_name" element={<Hospital />} />
           <Route path='/curriculum' element={<Curriculum/>}/>
           <Route path='/medicine' element={<Medicine/>}/>
+          <Route path='/medicine/approval' element={<MedicineApproval/>}/>
         </Routes>
         </Layout>
       </BrowserRouter>

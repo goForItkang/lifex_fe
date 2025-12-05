@@ -34,6 +34,9 @@ const Header = () => {
                 <Link to={"/rental"}>
                 <p>대여 현황</p>
                 </Link>
+                <Link to={"/medicine/approval"}>
+                <p>약승인</p>
+                </Link>
             </nav>
             
             <div id='user-icon' className='flex items-center ml-4'>
