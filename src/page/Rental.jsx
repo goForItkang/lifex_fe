@@ -1,14 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Search from '../component/Search';
 import { useSelector } from 'react-redux';
-import { useGetReqeustMedicine } from '../api/hooks/useMedicine';
+import { useGetReqeustMedicine, useRequestMedicineByInn } from '../api/hooks/useMedicine';
 
 const Rental = () => {
     const user = useSelector((state) => state.auth.user);
     const hospital_id = user?.hospital_id;
-
-    const { data: requestList, isLoading, error } = useGetReqeustMedicine();
-    if (isLoading) return <p className="text-center py-4">불러오는 중...</p>;
+    const [searchData, setSearchData] = useState("");
+    const isSearching = searchData.trim().length > 0;
+    const requestAll = useGetReqeustMedicine({
+        enabled: !isSearching,
+    });
+    const requestByInn = useRequestMedicineByInn(searchData, {
+        enabled: isSearching,
+    });
+    const requestList = isSearching ? requestByInn.data : requestAll.data;
+    const isLoading = isSearching ? requestByInn.isLoading : requestAll.isLoading;
+    const error = isSearching ? requestByInn.error : requestAll.error;
+    if (isLoading) return <p className="text-center py-4">불러오는 중입니다</p>;
     if (error) return <p className="text-center py-4 text-red-500">데이터 조회 실패</p>;
     if (!requestList || requestList.length === 0)
         return (
@@ -21,7 +30,8 @@ const Rental = () => {
         );
     return (
         <div>
-            <Search placeholder={"검색할 내용을 작성해주세요"} />
+            <Search placeholder={"약 성분으로 검색해주세요"} searchData={setSearchData} />
+
             <div className="w-[80%] mx-auto grid grid-cols-6 py-2 border-b font-semibold text-center">
                 <p>ID</p>
                 <p>병원</p>

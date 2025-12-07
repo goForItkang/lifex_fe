@@ -25,20 +25,21 @@ export const useMedicineAll = (keyword,enabled) => {
         retry: 0
     });
 };
-export const useGetReqeustMedicine = () =>{
+export const useGetReqeustMedicine = ({ enabled = true } = {}) =>{
     return useQuery({
         queryKey : ['medicine'],
         queryFn : async ()=>{
             const res = await medicineAPI.getRequestMedicine();
             return res.data
         },
-        enabled: true,
-        staleTime:0
+        enabled,
+        staleTime: 0,
+        retry: 0
     })
 }
 export const useGetPendingMedicine = () =>{
     return useQuery({
-        queryKey: ['medicine-pending'],
+        queryKey: ['medicine_pending'],
         queryFn : async ()=>{
             const res = await medicineAPI.getPendingMedicine();
             return res.data
@@ -54,3 +55,15 @@ export const useResponseMedicine = () => {
         }
     });
 };
+export const useRequestMedicineByInn = (keyword, { enabled = true } = {}) => {
+    return useQuery({
+      queryKey: ['request_by_inn', keyword],
+      queryFn: async () => {
+        const res = await medicineAPI.searchRequestHistoryByInn({ keyword });
+        return res.data;
+      },
+      enabled: enabled && keyword.length > 0,
+      staleTime: 0,
+      retry: 0,
+    });
+  };

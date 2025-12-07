@@ -20,5 +20,10 @@ export const medicineAPI = {
     getPendingMedicine:()=>instance.get("/api/medicine/approval/pending"),
     responseMedicine:({id,status})=>instance.patch(`/api/medicine/approval/${id}`,null,{
         params : {status}
-    })
+    }),
+    getRequestMedicineByInn: ({ keyword }) =>
+        instance.get("/api/medicines-request/search", {
+          params: { inn_name: keyword }
+        })
+    
 }
