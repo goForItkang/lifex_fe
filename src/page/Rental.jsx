@@ -7,7 +7,8 @@ const Rental = () => {
     const user = useSelector((state) => state.auth.user);
     const hospital_id = user?.hospital_id;
     const [searchData, setSearchData] = useState("");
-    const isSearching = searchData.trim().length > 0;
+    const isSearching = !!searchData && searchData.trim() !== "";
+    console.log("검색 결과:",searchData);
     const requestAll = useGetReqeustMedicine({
         enabled: !isSearching,
     });
@@ -18,11 +19,14 @@ const Rental = () => {
     const isLoading = isSearching ? requestByInn.isLoading : requestAll.isLoading;
     const error = isSearching ? requestByInn.error : requestAll.error;
     if (isLoading) return <p className="text-center py-4">불러오는 중입니다</p>;
-    if (error) return <p className="text-center py-4 text-red-500">데이터 조회 실패</p>;
+    if (error){
+        console.log(error);
+        <p className="text-center py-4 text-red-500">데이터 조회 실패</p>;
+    }
     if (!requestList || requestList.length === 0)
         return (
             <div>
-                <Search />
+                <Search placeholder={"약 성분으로 검색해주세요"} searchData={setSearchData}/>
                 <div className="text-center py-4">
                     <p>요청 내역이 없습니다.</p>
                 </div>

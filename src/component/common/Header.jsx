@@ -3,9 +3,7 @@ import {Link, useNavigate} from 'react-router-dom';
 
 
 import {  useDispatch, useSelector } from 'react-redux';
-import Cookies from "js-cookie";
 import { logout } from '../../store/slices/authSlice';
-import Hospital from '../../page/Hospital';
 const Header = () => {
     const user = useSelector((state) => state.auth.user);
     const hospital_name = user?.hospital;
